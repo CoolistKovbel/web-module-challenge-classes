@@ -96,11 +96,12 @@ class Car {
 
   drive(distance){
 
-    this.odometer +=  distance
-    this.tank = this.milesPerGallon / distance
-
-    if(this.tank < 0){
-      return `I ran out of fuel at ${this.odometer}`
+    if(this.tank <= 0){
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }else{
+      this.odometer +=  distance
+      this.tank = this.tank - (distance / this.milesPerGallon)  
     }
 
   }
@@ -122,10 +123,10 @@ class Car {
 */
 
 class Lambdasian {
-  constructor(props){
-    this.name = props.name;
-    this.age = props.age;
-    this.location = props.location;
+  constructor({name, age, location}){
+    this.name = name;
+    this.age = age;
+    this.location = location;
   }
 
   speak(){
@@ -150,11 +151,11 @@ class Lambdasian {
 */
 
 class Instructor extends Lambdasian{
-  constructor(props){
-    super(props)
-    this.specialty = props.specialty;
-    this.favLanguage = props.favLanguage;
-    this.catchPhrase = props.catchPhrase;
+  constructor({name, age, location,specialty, favLanguage, catchPhrase}){
+    super({name, age, location})
+    this.specialty = specialty;
+    this.favLanguage = favLanguage;
+    this.catchPhrase = catchPhrase;
   }
 
   demo(subject){
@@ -184,22 +185,23 @@ class Instructor extends Lambdasian{
 */
 
 class Student extends Lambdasian {
-  constructor(props){
-    super(props);
-    this.previousBackground = props.previousBackground
-    this.className = props.className;
-    this.favSubjects = props.favSubjects;
+  constructor({name, age, location, previousBackground, className, favSubjects}){
+    super({name, age, location});
+    this.previousBackground = previousBackground
+    this.className = className;
+    this.favSubjects = favSubjects;
   }
 
   listSubjects(){
-    return `Loving ${this.listSubjects.join(', ')}!`
+    let st = this.favSubjects.join(', ')
+    return `Loving ${st}!`
   }
 
   PRAssignment(subject){
     return `${this.name} has submitted a PR for ${subject}`
   }
 
-  sprintChallange(subject){
+  sprintChallenge(subject){
     return `${this.name} has begun sprint challange on ${subject}`
   }
 
