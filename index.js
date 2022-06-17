@@ -96,18 +96,25 @@ class Car {
 
   drive(distance){
 
-    if(this.tank <= 0){
+    const totalMiles = this.tank * this.milesPerGallon;
+
+    if(distance <= totalMiles){
+      
+      this.odometer += distance
+      this.tank = this.tank - (distance / this.milesPerGallon)
+
+    } else{
       this.tank = 0;
+      this.odometer += totalMiles
       return `I ran out of fuel at ${this.odometer} miles!`
-    }else{
-      this.odometer +=  distance
-      this.tank = this.tank - (distance / this.milesPerGallon)  
+
     }
 
   }
 
-
 }
+
+
 
 /*
   TASK 3
@@ -151,11 +158,11 @@ class Lambdasian {
 */
 
 class Instructor extends Lambdasian{
-  constructor({name, age, location,specialty, favLanguage, catchPhrase}){
-    super({name, age, location})
-    this.specialty = specialty;
-    this.favLanguage = favLanguage;
-    this.catchPhrase = catchPhrase;
+  constructor(props){
+    super(props)
+    this.specialty = props.specialty;
+    this.favLanguage = props.favLanguage;
+    this.catchPhrase = props.catchPhrase;
   }
 
   demo(subject){
@@ -185,11 +192,11 @@ class Instructor extends Lambdasian{
 */
 
 class Student extends Lambdasian {
-  constructor({name, age, location, previousBackground, className, favSubjects}){
-    super({name, age, location});
-    this.previousBackground = previousBackground
-    this.className = className;
-    this.favSubjects = favSubjects;
+  constructor(props){
+    super(props);
+    this.previousBackground = props.previousBackground
+    this.className = props.className;
+    this.favSubjects = props.favSubjects;
   }
 
   listSubjects(){
